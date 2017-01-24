@@ -1,0 +1,1 @@
+Just some exercises with fp
