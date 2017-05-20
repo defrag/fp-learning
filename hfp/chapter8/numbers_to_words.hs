@@ -18,4 +18,4 @@ digits 0 = []
 digits x = digits (div x 10) ++ [mod x 10]
 
 wordNumber :: Int -> String 
-wordNumber n = concat $ intersperse "-" (map digitToWord (digits n)) 
+wordNumber n = concat $ intersperse "-"  $ map digitToWord (digits n)
