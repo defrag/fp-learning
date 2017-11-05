@@ -1,3 +1,5 @@
+import Data.List 
+
 data Fruit =
     Peach
   | Plum
@@ -14,6 +16,8 @@ data Jam
 
 instance Ord Jam where
   compare (Jam _ count) (Jam _ count') = compare count count'
+
+compareKind (Jam k _) (Jam k' _) = compare k k'
 
 row1 = Jam Peach 1
 row2 = Jam Apple 15
@@ -42,3 +46,12 @@ mostRow jams = maximum jams
 
 mostRow' :: [[Jam]] -> Jam
 mostRow' jams = maximum $ concat jams
+
+sortJam :: [Jam] -> [Jam]
+sortJam jams = sortBy compareKind jams
+
+groupJam :: [Jam] -> [[Jam]]
+groupJam jams = groupBy compareFruits $ sortJam jams
+
+compareFruits :: Jam -> Jam -> Bool
+compareFruits (Jam j _) (Jam j' _) = j == j'
