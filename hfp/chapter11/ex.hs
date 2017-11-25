@@ -51,16 +51,15 @@ cellPhonesDead :: DaPhone -> String -> [(Digit, Presses)]
 cellPhonesDead phone str = concat $ map (reverseTaps phone) str
 
 reverseTaps :: DaPhone -> Char -> [(Digit, Presses)] 
-reverseTaps phone@(DaPhone keys) char 
+reverseTaps phone@(DaPhone _) char 
   | isUpper char = ('*', 1) : reverseTaps phone (toLower char) 
   | otherwise = [getPresses (getKey phone char)]
     where
       getPresses (Key c str) = (c, 1 + (fromJust $ elemIndex char str))
 
 getKey :: DaPhone -> Char -> Key
-getKey (DaPhone keys) char =  fromJust $ find (hasChar char) keys
+getKey (DaPhone keys) char = fromJust $ find (hasChar char) keys
   where
-    hasChar :: Char -> Key -> Bool
     hasChar c (Key _ cs) = elem c cs
 
 fingerTaps :: [(Digit, Presses)] -> Presses
